@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #e1dddd;
+  background-image: linear-gradient(to bottom, rgb(158, 148, 148), #e1dddd);
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: #212121;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-height: 100%;
+  width: auto;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.cat-info {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.descr-container-title {
+  margin-top: auto;
+}
+
+.error {
+  color: red;
+  font-weight: 500;
+}
+
+.loader {
+  display: flex;
+}
+
+.loading {
+  position: relative;
+  width: 100px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+.loading::after,
+.loading::before {
+  content: '';
+  display: inline-block;
+  width: 34px;
+  height: 24px;
+  background-color: green;
+  background-image: radial-gradient(circle 8px, #0d161b 100%, transparent 0);
+
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  animation: eyeMove 5s infinite, blink 10s infinite;
+}
+@keyframes eyeMove {
+  0%,
+  2% {
+    background-image: radial-gradient(circle 8px, #0d161b 100%, transparent 0);
+    background-position: 0px 0px;
+  }
+  5%,
+  22% {
+    background-image: radial-gradient(circle 8px, #0d161b 100%, transparent 0);
+    background-position: 12px 0px;
+  }
+  23%,
+  40% {
+    background-image: radial-gradient(circle 8px, #0d161b 100%, transparent 0);
+    background-position: 10px 0px;
+  }
+  43%,
+  70% {
+    background-image: radial-gradient(circle 8px, #0d161b 100%, transparent 0);
+    background-position: -10px 0px;
+  }
+  73%,
+  90% {
+    background-image: radial-gradient(circle 8px, #0d161b 100%, transparent 0);
+    background-position: 0px 10px;
+  }
+  93%,
+  100% {
+    background-position: 0px 0px;
+    background-image: linear-gradient(to right, green, #0d161b, green);
+  }
+}
+@keyframes blink {
+  0%,
+  10%,
+  12%,
+  20%,
+  22%,
+  40%,
+  42%,
+  60%,
+  62%,
+  70%,
+  72%,
+  90%,
+  92%,
+  98%,
+  100% {
+    height: 24px;
+  }
+  11%,
+  21%,
+  41%,
+  61%,
+  71%,
+  91%,
+  99% {
+    height: 9px;
+  }
+}
