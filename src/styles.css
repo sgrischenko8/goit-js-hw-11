@@ -27,6 +27,24 @@ img {
   width: var(--width-column);
 }
 
+.title {
+  position: absolute;
+  margin: 0;
+  padding-left: 24px;
+  font-weight: 700;
+  font-style: italic;
+  color: rgb(228, 7, 244);
+  text-shadow: -1px 6px 6px 0px rgba(46, 47, 66, 0.45),
+    -2px 4px 18px 0px rgba(53, 46, 66, 0.26),
+    -4px 2px 32px 0px rgba(23, 8, 27, 0.18);
+}
+@media screen and (max-width: 1300px) {
+  .title {
+    position: relative;
+    background-color: rgb(80, 108, 210);
+    text-align: center;
+  }
+}
 .search-form {
   margin-bottom: 24px;
   display: flex;
@@ -39,6 +57,20 @@ img {
 input {
   margin: 0;
   padding: 10px;
+}
+
+form::before {
+  content: '↣';
+  padding-left: 24px;
+  padding-right: 14px;
+  font-size: 24px;
+  font-weight: 700;
+  transform: scale(1.5);
+
+  color: rgb(228, 7, 244);
+  text-shadow: -1px 6px 6px 0px rgba(46, 47, 66, 0.45),
+    -2px 4px 18px 0px rgba(53, 46, 66, 0.26),
+    -4px 2px 32px 0px rgba(23, 8, 27, 0.18);
 }
 
 input:hover {
