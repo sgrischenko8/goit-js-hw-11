@@ -21,6 +21,10 @@ const observer = new IntersectionObserver(
   { rootMargin: '200px' }
 );
 
+const lightbox = new SimpleLightbox('.item a', {
+  captionDelay: 250,
+});
+
 form.addEventListener('submit', onSubmit);
 
 function onSubmit(event) {
@@ -36,19 +40,23 @@ function onSubmit(event) {
 }
 
 async function getEvents(query, page) {
-  const data = await fetchEvents(query, page);
-  const { totalHits } = data;
-  const arrayOfQuerysSelect = data.hits;
-  if (!data.total > 0) {
-    Notiflix.Notify.failure(
-      `Sorry, there are no images matching your search query. Please try again.`
-    );
-    return;
-  }
-  Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-  renderEvents(arrayOfQuerysSelect);
-  if (data.totalHits !== list.children.length) {
-    observer.observe(bottomBorder);
+  try {
+    const data = await fetchEvents(query, page);
+    const { totalHits } = data;
+    const arrayOfQuerysSelect = data.hits;
+    if (!data.total > 0) {
+      Notiflix.Notify.failure(
+        `Sorry, there are no images matching your search query. Please try again.`
+      );
+      return;
+    }
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    renderEvents(arrayOfQuerysSelect);
+    if (data.totalHits !== list.children.length) {
+      observer.observe(bottomBorder);
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -89,24 +97,25 @@ function renderEvents(events) {
     )
     .join('');
   list.insertAdjacentHTML('beforeend', markup);
-  const lightbox = new SimpleLightbox('.item a', {
-    captionDelay: 250,
-  });
   lightbox.refresh();
 }
 
 async function loadMore() {
-  pageToFetch += 1;
-  const data = await fetchEvents(queryToFetch, pageToFetch);
-  if (data.totalHits === list.children.length) {
-    observer.unobserve(bottomBorder);
-    return Notiflix.Notify.info(
-      `We're sorry, but you've reached the end of search results.`
-    );
+  try {
+    pageToFetch += 1;
+    const data = await fetchEvents(queryToFetch, pageToFetch);
+    if (data.totalHits === list.children.length) {
+      observer.unobserve(bottomBorder);
+      return Notiflix.Notify.info(
+        `We're sorry, but you've reached the end of search results.`
+      );
+    }
+    const arrayOfQuerysSelect = data.hits;
+    renderEvents(arrayOfQuerysSelect);
+    smoothScroll();
+  } catch (error) {
+    console.log(error);
   }
-  const arrayOfQuerysSelect = data.hits;
-  renderEvents(arrayOfQuerysSelect);
-  smoothScroll();
 }
 
 function smoothScroll() {
